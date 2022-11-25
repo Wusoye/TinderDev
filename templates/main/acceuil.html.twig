@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Acceuil{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+
+
+
+
+            <div class="card mt-5 border-0 py-4 shadow">
+                <div class="card-body ms-3">
+                    Filtrer par langage:
+                    {% for unLangage in langageList %}
+                        <a href="{{ path('langage_filter', {id: unLangage.id}) }}"
+                           class="ms-3 link-primary">{{ unLangage.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <p class="mt-4 ms-3" style="opacity: 75%">{{ userList|length }} développeur(s) en base de donnée(s).</p>
+
+
+            <table class="table mt-5">
+                <thead>
+                    <th style="width: 15%"></th>
+                    <th style="width: 75%"></th>
+                    <th style="width: 10%"></th>
+                </thead>
+                <tbody>
+                {% for unUser in userList %}
+                {% if unUser.id != app.user.id %}
+                    <tr>
+                        <td>{{ unUser.pseudo }} ({{ unUser.amis|length }})</td>
+                        <td>
+                        {% for unLangageU in unUser.langages %}
+                            <img height="24px" width="24px" title="{{ unLangageU.name }}" src="{{ asset('icon/' ~ unLangageU.icon) }}" class="me-3">
+                        {% endfor %}
+                        </td>
+                        <td>
+                            <img style="{% if unUser not in app.user.amis %}display: none; {% endif %} cursor: pointer;"  id="img-no-fav-{{ unUser.id }}" class="me-2 addFriend" data-id="{{ app.user.id }}/{{ unUser.id }}" height="24px" width="24px" src="{{ asset('icon/group_remove_48.png') }}">
+                            <img style="{% if unUser in app.user.amis %}display: none; {% endif %} cursor: pointer;" id="img-fav-{{ unUser.id }}" class="me-2 addFriend" data-id="{{ app.user.id }}/{{ unUser.id }}" height="24px" width="24px" src="{{ asset('icon/group_add_48.png') }}">
+                            <img style="cursor: pointer" height="24px" width="24px" src="{{ asset('icon/inbox_48.png') }}">
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            <div class="card shadow  mt-5">
+                <div class="card-body">
+                    <div class="alert alert-warning mb-0" role="alert">
+                        Vous devez être authentifier pour voir la liste des développeurs.
+                    </div>
+                </div>
+            </div>
+            <p class="mt-3 ms-2" style="opacity: 75%">{{ userList|length }} développeur(s) en base de donnée(s).</p>
+        {% endif %}
+    </div>
+{% endblock %}
