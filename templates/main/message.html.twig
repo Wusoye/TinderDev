@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Acceuil{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="mb-3 mt-5">
+            <label for="exampleFormControlInput1" class="form-label">Sujet:</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Corps:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button onclick="window.location.href='{{ path('dev_acceuil') }}'" class="btn btn-outline-success">Envoyer</button>
+    </div>
+{% endblock %}

@@ -42,7 +42,7 @@
                         <td>
                             <img style="{% if unUser not in app.user.amis %}display: none; {% endif %} cursor: pointer;"  id="img-no-fav-{{ unUser.id }}" class="me-2 addFriend" data-id="{{ app.user.id }}/{{ unUser.id }}" height="24px" width="24px" src="{{ asset('icon/group_remove_48.png') }}">
                             <img style="{% if unUser in app.user.amis %}display: none; {% endif %} cursor: pointer;" id="img-fav-{{ unUser.id }}" class="me-2 addFriend" data-id="{{ app.user.id }}/{{ unUser.id }}" height="24px" width="24px" src="{{ asset('icon/group_add_48.png') }}">
-                            <img style="cursor: pointer" height="24px" width="24px" src="{{ asset('icon/inbox_48.png') }}">
+                            <img onclick="window.location.href='{{ path('main_message', {'idUser': unUser.id}) }}'" style="cursor: pointer" height="24px" width="24px" src="{{ asset('icon/inbox_48.png') }}">
                         </td>
                     </tr>
                 {% endif %}

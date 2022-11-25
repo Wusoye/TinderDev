@@ -88,22 +88,13 @@ class MainController extends AbstractController
         return $response;
     }
 
-    #[Route('/api/remove_friend/{idOwner}/{idFriend}', name: 'api_removeFriend')]
-    public function removeFriend($idOwner, $idFriend, EntityManagerInterface $entityManager, LangageRepository $langageRepository, UserRepository $userRepository): JsonResponse
+    #[Route('/message/{idUser}', name: 'main_message')]
+    public function message($idUser): Response
     {
 
-        $user = $userRepository->find($idOwner);
-        $ami = $userRepository->find($idFriend);
-
-        $user->removeAmi($ami);
-
-        $entityManager->persist($ami);
-        $entityManager->flush();
-
-        $response = new JsonResponse(json_encode(array()));
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $this->render('main/message.html.twig', [
+            'controller_name' => 'MainController',
+            'idUser' => $idUser
+        ]);
     }
 }
