@@ -27,14 +27,6 @@ class MainController extends AbstractController
         $langageList = $langageRepository->findAll();
         $userList = $userRepository->findAll();
 
-        $amiList = [];
-
-        foreach ($userList[3]->getAmis() as $unAmi) {
-            $amiList[] = $unAmi;
-        }
-
-        dump($amiList);
-
         return $this->render('main/acceuil.html.twig', [
             'controller_name' => 'MainController',
             'langageList' => $langageList,
